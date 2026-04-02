@@ -7,7 +7,7 @@ yellow='\033[0;33m'
 white='\033[0m'
 
 # ================= PATH =================
-DEFCONFIG=santonirahmat_defconfig
+DEFCONFIG=santoni_defconfig
 ROOTDIR=$(pwd)
 OUTDIR="$ROOTDIR/out/arch/arm64/boot"
 ANYKERNEL_DIR="$ROOTDIR/AnyKernel"
@@ -143,9 +143,6 @@ make -j$(nproc --all) \
   O=out \
   ARCH=arm64 \
   CC=clang \
-  LD=ld.lld \
-  LLVM=1 \
-  LLVM_IAS=1 \
   CROSS_COMPILE=aarch64-linux-gnu- \
   CROSS_COMPILE_ARM32=arm-linux-gnueabi- || {
         send_telegram_error
