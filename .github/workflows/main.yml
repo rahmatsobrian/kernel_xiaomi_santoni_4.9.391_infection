@@ -33,30 +33,22 @@ jobs:
             libncurses5-dev bzip2 gcc-aarch64-linux-gnu gcc-arm-linux-gnueabihf \
             gcc-arm-linux-gnueabi dos2unix kmod
 
-      # - name: Setup ZYC Clang
+      - name: Setup ZYC Clang
+        run: |
+          mkdir -p clang-zyc
+          cd clang-zyc
+            wget -q https://github.com/ZyCromerZ/Clang/releases/download/21.0.0git-20250715-release/Clang-21.0.0git-20250715.tar.gz -O zyc-clang.tar.gz
+            tar -xf zyc-clang.tar.gz
+            rm -f zyc-clang.tar.gz
+
+      # - name: Setup KernelSU (Legacy)
         # run: |
-          # mkdir -p clang-zyc
-          # cd clang-zyc
-            # wget -q https://github.com/ZyCromerZ/Clang/releases/download/21.0.0git-20250715-release/Clang-21.0.0git-20250715.tar.gz -O zyc-clang.tar.gz
-            # tar -xf zyc-clang.tar.gz
-            # rm -f zyc-clang.tar.gz
-
-      - name: Setup WeebX Clang
-        run: |
-          mkdir -p weebx-clang
-          cd weebx-clang
-            wget -q $(curl -k https://raw.githubusercontent.com/XSans0/WeebX-Clang/main/main/link.txt) -O weebx-clang.tar.gz
-            tar -xf weebx-clang.tar.gz
-            rm -f weebx-clang.tar.gz
-
-      - name: Setup KernelSU (Legacy)
-        run: |
-          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
+          # curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
 
       - name: Start Build (with log)
         run: |
           mkdir -p logs
-          bash buildclang.sh 2>&1 | tee logs/build.txt
+          bash buildzyc.sh 2>&1 | tee logs/build.txt
 
       - name: Upload Build Log
         if: always()
